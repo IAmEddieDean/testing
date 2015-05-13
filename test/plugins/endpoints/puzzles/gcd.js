@@ -61,5 +61,4 @@ describe('GET /puzzles/gcd/{num1}/{num2}', function(){
       done();
     });
   });
-
 });
