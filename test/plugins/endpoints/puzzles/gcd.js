@@ -36,7 +36,7 @@ describe('GET /puzzles/gcd/{num1}/{num2}', function(){
     });
   });
   it('should throw an error on non-integers', function(done){
-    server.inject({method: 'GET', url: '/puzzles/gcd/b/105.4', credentials: {_id: 3}}, function(response){
+    server.inject({method: 'GET', url: '/puzzles/gcd/@/105', credentials: {_id: 3}}, function(response){
       expect(response.statusCode).to.equal(400);
       done();
     });
@@ -51,6 +51,13 @@ describe('GET /puzzles/gcd/{num1}/{num2}', function(){
   it('should only take two numbers as an argument, otherwise error', function(done){
     server.inject({method: 'GET', url: '/puzzles/gcd/252/105/1', credentials: {_id: 3}}, function(response){
       expect(response.statusCode).to.equal(404);
+      done();
+    });
+  });
+  it('should return 1 if numbers are prime', function(done){
+    server.inject({method: 'GET', url: '/puzzles/gcd/37/11', credentials: {_id: 3}}, function(response){
+      expect(response.statusCode).to.equal(200);
+      expect(response.result.value).to.equal(1);
       done();
     });
   });
